@@ -1,0 +1,1412 @@
+focus_tree = {
+	id = settler_generic
+	country = {
+		factor = 0
+		modifier = {
+			OR = {
+				is_settler_nation = yes # scripted triggers
+				# NCR civil war
+				tag = ENC
+				tag = BAR
+				tag = BON
+                                tag = BIM
+				AND = {
+					is_brotherhood_nation = yes
+					NOT = { tag = BOS }
+				}
+			}
+			
+			add = 10
+		}
+	}
+	default = no
+	focus = {
+		id = settler_forfathers
+		icon = GFX_goal_generic_building_focus
+		cost = 1.00
+		x = 12
+		y = 1
+
+		completion_reward = {
+			country_event = { id = nf_settler.1 }
+		}
+
+	}
+	focus = { 
+		id = settler_defend
+		icon = GFX_goal_generic_building_focus
+		cost = 1.00
+		prerequisite = {
+			focus = settler_forfathers
+		}
+		x = 12
+		y = 2
+
+		completion_reward = {
+			country_event = { id = nf_settler.2 }
+		}
+
+	}
+	focus = {
+		id = settler_become
+		icon = GFX_goal_generic_building_focus
+		cost = 1.00
+		prerequisite = {
+			focus = settler_defend
+		}
+		x = 12
+		y = 3
+
+		completion_reward = {
+			country_event = { id = nf_settler.3 }
+		}
+
+	}
+
+	focus = {
+		id = settler_palisade
+		icon = GFX_goal_generic_building_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_become
+		}
+		x = 12
+		y = 4
+
+		completion_reward = {
+			add_ideas = erect_palisade
+		}
+
+	}
+	focus = {
+		id = settler_community
+		icon = GFX_goal_generic_slums_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_become
+		}
+		x = 20
+		y = 4
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = settler_reorganization 
+		icon = GFX_goal_generic_communcation_focus
+		cost = 8.6
+				prerequisite = {
+			focus = settler_become
+		}
+		x = 30
+		y = 4
+		completion_reward = {
+			add_political_power = 100
+		}
+
+	}
+	focus = {
+		id = settler_schools
+		icon = GFX_goal_generic_advanced_technology_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_become
+		}
+		x = 2
+		y = 4
+		completion_reward = {
+			add_ideas =	new_schools
+		}
+	}
+	focus = {
+		id = settler_laboratory
+		icon = GFX_focus_research
+		cost = 8.6
+		prerequisite = {
+			focus = settler_schools
+		}
+		x = 2
+		y = 5
+        completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = settler_medical
+		icon = GFX_goal_generic_food_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_laboratory
+		}
+		x = 0
+		y = 6
+        completion_reward = {
+			add_tech_bonus = {
+				name = medical_bonus
+				bonus = 0.5
+				uses = 1
+				category = chem_tech
+			}
+			
+		}
+	}
+	focus = {
+		id = settler_chemistry
+		icon = GFX_goal_generic_data_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_medical
+		}
+		x = 0
+		y = 7
+		completion_reward = {
+		add_ideas = chem_lab
+		}
+
+	}
+	focus = {
+		id = settler_science
+		icon = GFX_goal_generic_advanced_technology_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_laboratory
+		}
+		x = 2
+		y = 6
+		completion_reward = {
+        add_tech_bonus = {
+				name = robot_bonus
+				bonus = 0.5
+				uses = 1
+				category = robotics_tech
+			}
+		}
+	}
+	focus = {
+		id = settler_robco
+		icon = GFX_goal_generic_robots_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_science
+		}
+		x = 2
+		y = 7
+		completion_reward = {
+		    swap_ideas = {
+		        add_idea = settler_robco
+		        remove_idea = new_schools
+		    }
+		}
+	}
+	focus = {
+		id = settler_firefighter
+		icon = GFX_goal_generic_cities_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_robco
+		}
+		x = 1
+		y = 8
+		completion_reward = {
+		    add_ideas = firefighter_protection
+		}
+	}
+	focus = {
+		id = settlers_protection
+		icon = GFX_goal_generic_special_forces
+		cost = 8.6
+		prerequisite = {
+			focus = settler_robco
+		}
+		x = 3
+		y = 8
+		completion_reward = {
+			add_tech_bonus = {
+				name = medical_bonus
+				bonus = 0.5
+				uses = 1
+				category = chem_tech
+			}
+			 add_tech_bonus = {
+				name = robot_bonus
+				bonus = 0.5
+				uses = 1
+				category = robotics_tech
+			}
+		}
+
+	}
+	focus = {
+		id = settler_construction
+		icon = GFX_goal_generic_large_scale_normal_industry_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settlers_protection
+		}
+		x = 3
+		y = 9
+		completion_reward = {
+		add_ideas = construction_protection	
+		}
+		
+
+	}
+	focus = {
+		id = settler_garage
+		icon = GFX_goal_generic_military_industry_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_laboratory
+		}
+		x = 6
+		y = 6
+       completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = settler_vehicles
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 8.6
+		prerequisite = {
+			focus = settler_garage
+		}
+		x = 6
+		y = 7
+        completion_reward = {
+			add_tech_bonus = {
+				name = transport_bonus
+				bonus = 0.5
+				uses = 1
+				category = vehicle_tech
+			}
+		}
+	}
+	focus = {
+		id = settler_teams
+		icon = GFX_goal_generic_supplies_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_vehicles
+		}
+		x = 5
+		y = 8
+        completion_reward = {
+			random_owned_controlled_state = {
+			  add_resource = {
+				type = fuel
+				amount = 6
+				}
+				add_resource = {
+				type = electronics
+				amount = 6
+				}
+		    }
+		
+	    }
+	
+		
+    }
+	focus = {
+		id = settler_war
+		icon = GFX_goal_generic_army_motorized
+		cost = 8.6
+		prerequisite = {
+			focus = settler_vehicles
+		}
+		x = 7
+		y = 8
+        completion_reward = {
+			add_tech_bonus = {
+				name = apc_bonus
+				bonus = 0.5
+				uses = 1
+				category = apc_tech
+			}
+		}
+	}
+	focus = {
+		id = settler_thinktank
+		icon = GFX_focus_NZL_bob_semple_tank
+		cost = 8.6
+		prerequisite = {
+			focus = settler_teams
+		}
+		prerequisite = {
+			focus = settler_war
+		}
+		x = 6
+		y = 9
+        completion_reward = {
+			add_tech_bonus = {
+				name = thinktank_bonus
+				bonus = 0.5
+				uses = 1
+				category = tank_tech
+			}
+		}
+	}
+	focus = {
+		id = settlers_wall
+		icon = GFX_goal_generic_walls_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_palisade
+		}
+		x = 9
+		y = 5
+		completion_reward = {
+		    swap_ideas = {
+		        add_idea = wall_construction
+		        remove_idea = erect_palisade
+		    }
+		}
+
+	}
+	focus = {
+		id = settler_defenses
+		icon = GFX_goal_generic_bunkers_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settlers_wall
+		}
+		x = 9
+		y = 6
+		completion_reward = {
+			capital_scope = { 
+			add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+				}
+			}
+		} 	
+
+	}
+	focus = {
+		id = settler_caravan
+		icon = GFX_goal_bottlecap
+		cost = 8.6
+		prerequisite = {
+			focus = settler_palisade
+		}
+		x = 11
+		y = 5
+		completion_reward = {
+		   add_ideas = caravanmilitia
+		   add_manpower = 250
+		}
+
+	}
+	focus = {
+		id = settler_gunsmiths
+		icon = GFX_goal_generic_common_firearms_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_caravan
+		}
+		x = 11
+		y = 6
+          completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		
+			add_tech_bonus = {
+				name = gunsmith_bonus
+				bonus = 0.5
+				uses = 1
+				category =  ballistic_weaponry_tech
+			}
+		}
+	}
+	focus = {
+		id = settler_subsidize
+		icon = GFX_goal_generic_regular_firearms_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_gunsmiths
+		}
+		x = 11
+		y = 7
+		completion_reward = {
+		   swap_ideas = {
+		    add_idea = settler_subsidized_weapon_manufacturers
+		    remove_idea = caravanmilitia
+		   }
+		}
+	}
+	focus = {
+		id = settler_armory
+		icon = GFX_goal_generic_ammo_boxes_focus	
+		cost = 8.6
+		prerequisite = {
+			focus = settler_subsidize
+		}
+		x = 11
+		y = 8
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		    swap_ideas = {	
+                add_idea = established_armory
+	            remove_idea = settler_subsidized_weapon_manufacturers
+		    }
+	    }
+	}
+	focus = {
+		id = settlers_commanders
+		icon = GFX_focus_generic_military_mission
+		cost = 8.6
+		prerequisite = {
+			focus = settler_palisade
+		}
+		x = 15
+		y = 5
+		completion_reward = {
+		add_ideas = settler_militia_commanders
+		}
+	}	
+	focus = {
+		id = settler_drills
+		icon = GFX_goal_generic_pipe_weapons_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settlers_commanders
+		}
+		x = 14
+		y = 6
+		completion_reward = {
+		add_ideas =	militia_drilling
+		}
+
+	}
+	focus = {
+		id = settler_organization
+		icon = GFX_goal_generic_axis_build_infantry
+		cost = 8.6
+		prerequisite = {
+			focus = settlers_commanders
+		}
+		x = 16
+		y = 6
+		completion_reward = {
+		add_ideas =	settler_militia_organization
+		}
+
+	}
+	focus = {
+		id = settler_posters
+		icon = GFX_goal_generic_recruitment_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_organization
+		}
+		prerequisite = {
+			focus = settler_drills
+		}
+		x = 15
+		y = 7
+		completion_reward = {
+		add_ideas =	militia_posters
+		}
+
+	}
+	focus = {
+		id = settler_encourage
+		icon = GFX_focus_generic_little_entente
+		cost = 8.6
+		prerequisite = {
+			focus = settler_posters
+		}
+		x = 14
+		y = 8
+		completion_reward = {
+			swap_ideas = {
+				add_idea = encourage_women
+				remove_idea = militia_posters
+			}
+		}
+
+	}
+	focus = {
+		id = settler_standard
+		icon = GFX_goal_generic_allies_build_infantry
+		cost = 8.6
+		prerequisite = {
+			focus = settler_posters
+		}
+		x = 16
+		y = 8
+		completion_reward = {
+		add_ideas =	settler_standardized_military
+		}
+
+	}
+	focus = {
+		id = settler_oldworld
+		icon = GFX_goal_generic_ideological_fury_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_standard
+		}
+		x = 16
+		y = 9
+		completion_reward = {
+			add_ideas =	settler_old_tactics
+		}
+
+	}
+	focus = {
+		id = settler_awareness
+		icon = GFX_goal_generic_communcation_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_oldworld
+		}
+		x = 16
+		y = 10
+		completion_reward = {
+		swap_ideas = {
+				add_idea = settler_tactical_awareness
+				remove_idea = settler_old_tactics
+			}
+		}
+
+	}
+	focus = {
+		id = settler_marching
+		icon = GFX_goal_generic_recruitment_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_oldworld
+		}
+		x = 18
+		y = 10
+		completion_reward = {
+			add_ideas =	marching_drills
+		}
+
+	}
+	focus = {
+		id = settler_distance
+		icon = GFX_goal_generic_land_doctrines_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_marching
+		}
+		x = 18
+		y = 11
+		completion_reward = {
+		swap_ideas = {
+				add_idea = settler_long_distance_movements
+				remove_idea = marching_drills
+			}
+		}
+	}
+	focus = {
+		id = settler_arrive
+		icon = GFX_goal_generic_slums_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_community
+		}
+		x = 19
+		y = 5
+		completion_reward = {
+		    add_timed_idea = { idea = settler_wasteland_settlers days = 100 }
+		}
+
+	}
+	focus = {
+		id = settler_tato
+		icon = GFX_goal_generic_supplies_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_arrive
+		}
+		x = 19
+		y = 6
+        completion_reward = {
+				add_ideas = tato_farming
+		}
+	}
+	focus = {
+		id = settler_brahmin
+		icon = GFX_goal_generic_food_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_tato
+		}
+		x = 19
+		y = 7
+		completion_reward = {
+			swap_ideas = {
+				add_idea = brahmin_herding
+				remove_idea = tato_farming
+			}
+		}
+
+	}
+	focus = 5
+		id = settler_traderoutes
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 8.6
+		prerequisite = {
+			focus = settler_community
+		}
+		x = 23
+		y = 5
+
+				completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 0
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+
+	}
+	focus = {
+		id = settler_future
+		icon = GFX_goal_generic_building_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_traderoutes
+		}
+		x = 22
+		y = 6
+		completion_reward = {
+			add_tech_bonus = {
+				name = industry_bonus
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+	focus = {
+		id = settler_pride
+		icon = GFX_goal_generic_national_unity
+		cost = 8.6
+		prerequisite = {
+			focus = settler_future
+		}
+		x = 22
+		y = 7
+       completion_reward = {
+			add_ideas =	local_pride
+       }
+
+	}
+	focus = {
+		id = settler_town
+		icon = GFX_goal_generic_slums_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_pride
+		}
+		x = 22
+		y = 8
+        completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = settler_city
+		icon = GFX_goal_generic_cities_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_town
+		}
+		x = 22
+		y = 9
+		 completion_reward = 9
+			random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 4
+	       }
+		}
+	}	
+	focus = {
+		id = settlers_markets
+		icon = GFX_goal_generic_large_scale_normal_industry_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_city
+		}
+		x = 21
+		y = 10
+        completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		 random_owned_controlled_state = {
+				add_building_construction = {
+					type = radar_station
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = settler_labor
+		icon = GFX_focus_yug_pan_slavic_congress
+		cost = 8.6
+		prerequisite = {
+			focus = settler_city
+		}
+		x = 23
+		y = 10
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		    swap_ideas = {
+			    add_idea = labor_treaties
+				remove_idea = local_pride
+			}	
+		}
+	}
+	focus = {
+		id = settler_robed
+		icon = GFX_goal_focus_spy
+		cost = 8.6
+		prerequisite = {
+			focus = settler_labor
+		}
+		prerequisite = {
+			focus = settlers_markets
+		}
+		x = 22
+		y = 11
+        completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = settler_enforce
+		icon = GFX_goal_bottlecap
+		cost = 8.6
+		prerequisite = {
+			focus = settler_traderoutes
+		}
+		x = 24
+		y = 6
+		completion_reward = {
+		add_ideas = enforced_trade_laws
+		}
+
+	}
+	focus = {
+		id = settler_roadways
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 8.6
+		prerequisite = {
+			focus = settler_enforce
+		}
+		x = 24
+		y = 7
+        completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 0
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = settler_elites
+		icon = GFX_goal_generic_dangerous_deal
+		cost = 8.6
+		prerequisite = {
+			focus = settler_reorganization
+		}
+		mutually_exclusive = {
+			focus = settler_intellectuals
+			focus = settler_support
+			focus = settler_empower
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_government = elites }
+			}
+		}
+		x = 27
+		y = 5
+		completion_reward = {
+			add_ideas = elites
+			add_political_power = 60
+		}
+
+	}
+	focus = {
+		id = settler_oligarch
+		icon = GFX_focus_rom_parties_end
+		cost = 8.6
+		prerequisite = {
+			focus = settler_elites
+		}
+		x = 27
+		y = 6
+		completion_reward = {
+		    swap_ideas = {
+		        add_idea = oligarchical_power
+		        remove_idea = elites
+		    }
+		}
+
+	}
+	focus = {
+		id = settler_monopoly
+		icon = GFX_goal_generic_neutrality_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_oligarch
+		}
+		x = 27
+		y = 7
+		completion_reward = {
+		    swap_ideas = {
+		        add_idea = settler_monopoly
+		        remove_idea = oligarchical_power
+		    }
+		}
+	}
+	focus = {
+		id = settler_intellectuals
+		icon = GFX_goal_tfv_generic_tech_sharing
+		cost = 8.6
+		prerequisite = {
+			focus = settler_reorganization
+		}
+		mutually_exclusive = {
+			focus = settler_support
+			focus = settler_elites
+			focus = settler_empower
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_government = intellectuals }
+			}
+		}
+		x = 29
+		y = 5
+		
+		completion_reward = {
+		add_ideas = intellectuals
+		add_political_power = 60
+		}
+
+	}
+	focus = {
+		id = settler_minds
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 8.6
+		prerequisite = {
+			focus = settler_intellectuals
+		}
+		x = 29
+		y = 6
+        completion_reward = {
+			add_research_slot = 1
+		}	
+	}
+	focus = {
+		id = settler_aerodynamics
+		icon = GFX_goal_generic_air_fighter2	
+		cost = 8.6
+		prerequisite = {
+			focus = settler_minds
+		}
+		x = 29
+		y = 7
+        completion_reward = {
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 0.5
+				uses = 1
+				category = light_air
+			}
+		random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = air_base
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = air_base
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = air_base
+					level = 1
+					instant_build = yes
+				}
+			}
+		}	
+	}
+	focus = {
+		id = settler_support
+		icon = GFX_goal_generic_demand_territory
+		cost = 8.6
+		prerequisite = {
+			focus = settler_reorganization
+		}
+		mutually_exclusive = {
+			focus = settler_intellectuals
+			focus = settler_elites
+			focus = settler_empower
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_government = people }
+			}
+		}
+		x = 31
+		y = 5
+		completion_reward = {
+		add_ideas = people
+		add_political_power = 60
+		}
+
+	}
+	focus = {
+		id = settler_council
+		icon = GFX_focus_generic_the_giant_wakes
+		cost = 8.6
+		prerequisite = {
+			focus = settler_support
+		}
+		x = 31
+		y = 6
+		completion_reward = {
+		add_national_unity = 0.1
+		}
+
+	}
+	focus = {
+		id = settler_loyalty
+		icon = GFX_goal_generic_demand_territory
+		cost = 8.6
+		prerequisite = {
+			focus = settler_council
+		}
+		x = 31
+		y = 7
+		completion_reward = {
+		    swap_ideas = {
+		        add_idea = loyalty
+		        remove_idea = people
+		    }
+		}
+
+	}
+	focus = {
+		id = settler_empower
+		icon = GFX_focus_rom_royal_dictatorship
+		cost = 8.6
+		prerequisite = {
+			focus = settler_reorganization
+		}
+		mutually_exclusive = {
+			focus = settler_support
+			focus = settler_intellectuals
+			focus = settler_elites
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_government = ruler }
+			}
+		}
+		x = 33
+		y = 5
+		completion_reward = {
+		add_ideas = ruler
+		add_political_power = 60
+		}
+
+	}
+	focus = {
+		id = settler_rivals
+		icon = GFX_focus_hun_assassinate_horthy
+		cost = 8.6
+		prerequisite = {
+			focus = settler_empower
+		}
+		x = 33
+		y = 6
+		completion_reward = {
+		add_ideas = eliminating_rivals
+		}
+
+	}
+	focus = {
+		id = settler_bodyguards
+		icon = GFX_goal_generic_war_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_rivals
+		}
+		x = 33
+		y = 7
+		completion_reward = {
+		    swap_ideas = {
+			    add_idea = settlerbodyguards
+			    remove_idea = eliminating_rivals
+			}
+		}
+	}
+	focus = {
+		id = settler_paladin
+		icon = GFX_goal_generic_t45d_power_armour_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_robed
+		}
+		available = {
+			has_tech = power_armour
+		}
+		x = 23
+		y = 12
+		completion_reward = {
+			set_technology = { power_armour_t45d = 1 }
+	    }
+	}
+	focus = {
+		id = settler_scribe
+		icon = GFX_goal_generic_BoS_diplomatic_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_robed
+		}
+		available = {
+			has_tech = overcharged_ammunition
+		}
+		x = 21
+		y = 12
+		completion_reward = {
+			set_technology = { advanced_laser_weaponry = 1 }
+	    }
+	}
+	focus = {
+		id = settler_fallback
+		icon = GFX_goal_generic_special_forces
+		cost = 8.6
+		prerequisite = {
+			focus = settler_standard
+		}
+		x = 14
+		y = 9
+		completion_reward = {
+		swap_ideas = {
+				add_idea = settler_fallback_tactics
+				remove_idea = settler_standardized_military
+			}
+		}
+
+	}
+	focus = {
+		id = settler_pointdefense
+		icon = GFX_goal_generic_walls_focus
+		cost = 8.6
+		prerequisite = {
+			focus = settler_oldworld
+		}
+		x = 14
+		y = 10
+		completion_reward = {
+        add_ideas = settler_point_defence
+		}
+
+
+	}
+	focus = {
+		id = settler_police
+		icon = GFX_goal_focus_spy
+		cost = 8.6
+		prerequisite = {
+			focus = settler_firefighter
+		}
+		x = 1		
+		y = 9
+		completion_reward = {
+		    swap_ideas = {
+		        add_idea = police_protection
+			    remove_idea = firefighter_protection
+			}
+		}
+	}
+}
